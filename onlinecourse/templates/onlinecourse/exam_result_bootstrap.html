@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exam Result</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Exam Result</h1>
+        <h3>Course: {{ course.name }}</h3>
+        <h4>Score: {{ grade }}</h4>
+
+        {% if grade >= 50 %}
+            <div class="alert alert-success">
+                <h3>Congratulations! You passed the exam.</h3>
+            </div>
+        {% else %}
+            <div class="alert alert-danger">
+                <h3>Sorry, you did not pass. Please try again.</h3>
+            </div>
+        {% endif %}
+
+        <h4>Your Answers:</h4>
+        <ul class="list-group">
+            {% for choice in choices %}
+                <li class="list-group-item">
+                    {{ choice.content }} -
+                    {% if choice.is_correct %}
+                        <span class="text-success">Correct</span>
+                    {% else %}
+                        <span class="text-danger">Incorrect</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'onlinecourse:course_details' course.id %}" class="btn btn-primary mt-3">Back to Course</a>
+    </div>
+</body>
+</html>
